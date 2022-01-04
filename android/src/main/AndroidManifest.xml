@@ -1,3 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.softnet.speakerphone">
+
+    <application>
+
+        <!-- 서비스 정의 -->
+        <service
+            android:name=".CallingService"
+            android:enabled="true"
+            android:exported="true"></service>
+        <!-- 브로드 캐스트 리시버 정의 -->
+        <receiver
+            android:name=".PhoneCallReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.PHONE_STATE" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+
+    <!-- 권한 정의 -->
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 </manifest>
