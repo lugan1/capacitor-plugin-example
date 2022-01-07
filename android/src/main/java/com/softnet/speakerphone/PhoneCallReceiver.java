@@ -40,6 +40,7 @@ public class PhoneCallReceiver extends BroadcastReceiver {
     // 01089578425 , 01029883940, 0234462502
 
 
+    @SuppressLint("WrongConstant")
     @Override
     public void onReceive(Context context, Intent intent) {
         // TODO: This method is called when the BroadcastReceiver is receiving
@@ -84,12 +85,16 @@ public class PhoneCallReceiver extends BroadcastReceiver {
         if(flag == true){
             audioManager.setSpeakerphoneOn(true);
             audioManager.setMode(AudioManager.MODE_IN_CALL);
-            currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
-            audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL, audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL), AudioManager.STREAM_VOICE_CALL);
+            if(Build.VERSION.SDK_INT >= 30){
+                currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
+                audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL, audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL), AudioManager.STREAM_VOICE_CALL);
+            }
         }
         else if(flag == false){
             audioManager.setSpeakerphoneOn(false);
-            audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL, currentVolume, AudioManager.STREAM_VOICE_CALL);
+            if(Build.VERSION.SDK_INT >= 30){
+                audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL, currentVolume, AudioManager.STREAM_VOICE_CALL);
+            }
         }
     }
 
