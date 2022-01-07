@@ -1,3 +1,4 @@
 export interface SpeakerPhonePlugin {
-  setSpeakerphoneOn(options: { value: boolean}): Promise<{value:boolean}>;
+  requestPermissions():Promise<void>;
+  requestPhoneScreening():Promise<void>;
 }
