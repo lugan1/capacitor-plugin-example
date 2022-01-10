@@ -6,11 +6,13 @@ AndroidManifest.xml 에 다음과 같이 권한 입력 필요
 ```xml
 <!-- 스피커폰으로 변경위해 필요-->
 <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-<!-- 전화착신 상태, 전화번호 읽어오기 위해 필요 -->
+
+<!-- 전화착신 상태 읽어오기 위해 필요 -->
 <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
-<!-- API 30부터 전화번호를 읽는 권한은 이 권한으로 대체 -->
-<uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
+<!-- 전화번호 읽어오기 위해 필요 -->
+<uses-permission android:name="android.permission.READ_CALL_LOG"/> 
+
 ```
 
 ## Install
@@ -24,8 +26,7 @@ npx cap sync
 
 <docgen-index>
 
-* [`requestPermissions()`](#requestpermissions)
-* [`requestPhoneScreening()`](#requestphonescreening) : API 29 부터 수신 전화번호를 읽는 방법이 바뀌어서, 수신 번호 읽을시 해당 권한필요
+* [`requestPermissions()`](#requestpermissions) : 필요 권한들을 요구 (오디오설정, 착신상태 읽어오기 등)
 
 </docgen-index>
 
@@ -36,15 +37,6 @@ npx cap sync
 
 ```typescript
 requestPermissions() => Promise<void>
-```
-
---------------------
-
-
-### requestPhoneScreening()
-
-```typescript
-requestPhoneScreening() => Promise<void>
 ```
 
 --------------------
