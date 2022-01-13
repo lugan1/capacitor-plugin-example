@@ -27,7 +27,7 @@ npx cap sync
 <docgen-index>
 
 * [`requestPermissions()`](#requestpermissions) : 필요권한 요청
-* [`setRegNumber(...)`](#setregnumber) : 콜센터 전화번호 리스트 등록
+* [`setRegNumber(...)`](#setregnumber) : 콜센터 전화번호 리스트 등록 (xml 파일로 로컬에 저장)
 
 </docgen-index>
 

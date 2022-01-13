@@ -17,10 +17,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lugan1/capacitor-plugin-example.git"
+    "url": "git+https://git.inphrcare.com/iot/platform/capacitor-plugins/capacitor-auto-speakerphone.git"
   },
   "bugs": {
-    "url": "https://github.com/lugan1/capacitor-plugin-example/issues"
+    "url": "https://git.inphrcare.com/iot/platform/capacitor-plugins/capacitor-auto-speakerphone/-/issues"
   },
   "keywords": [
     "capacitor",

@@ -22,14 +22,6 @@ public class PhoneCallReceiver extends BroadcastReceiver {
     private static AudioManager audioManager;
     private static int currentVolume;
 
-/*    private static HashMap regNumber = new HashMap<String, String>(){
-        {
-            put("이후기","01029883940");
-            put("소프트넷","0234462502");
-            put("노은석대리님","01089578425");
-        }
-    };*/
-
     Set<String> numberList;
 
     public PhoneCallReceiver() {
@@ -42,30 +34,14 @@ public class PhoneCallReceiver extends BroadcastReceiver {
         // an Intent broadcast.
         String state = "";
         state = intent.getStringExtra(TelephonyManager.EXTRA_STATE);
-
-        Toast.makeText(context,"브로드캐스트 리시버 호출 ",Toast.LENGTH_SHORT).show();
-
-        Iterator<String> iterator = read_CenterNumber(context).iterator();
-        String number;
-
-        while (iterator.hasNext()){
-            number = iterator.next();
-            Log.v("CallTest","저장된 번호 리스트 : "+number);
-            if(number.equals("0234462502")){
-                Toast.makeText(context,"읽어온 센터번호 : "+number,Toast.LENGTH_LONG).show();
-            }
-        }
+        
         // 브로드 캐스트 리시버가 알수없는 원인으로 두번 중복호출 되기 때문에 temp 변수와 비교후 다를때만 아래쪽 코드 실행
         // Call_LOG 권한을 추가했을때에 2번 실행되는걸로 보아, 전화기록이 핸드폰에 저장되었을때에 한번 더 호출되는 것으로 추정 (Call Log : API 28 에 추가된 권한)
         if(state.equals(mLastState)){
-
             //안드로이드 28 버전 이상의 핸드폰은 Call_log의 액션 (전화번호가 기록되는 액션 에서 수신전화를 가져온다), 28이상부터 CALL_LOG 권한 추가됨
             if(Build.VERSION.SDK_INT > 27 && state.equals(TelephonyManager.EXTRA_STATE_RINGING)){
-
                 phoneNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
                 numberList = read_CenterNumber(context);
-                Log.v("CallTest","전화리스트에 포함되어 있는지 테스트 : "+numberList.contains(phoneNumber));
-                Log.v("CallTest", "phone : "+phoneNumber+" regi : "+numberList);
             }
             return;
         } else {
@@ -121,28 +97,6 @@ public class PhoneCallReceiver extends BroadcastReceiver {
             // 통화볼륨 원복
             audioManager.setMode(AudioManager.MODE_NORMAL);
             // 통화 스트림모드 일반모드로 원복
-        }
-    }
-
-    private static class CheckSpeakerphone extends AsyncTask<Object, Object, Integer>{
-
-        @Override
-        protected Integer doInBackground(Object...params) {
-            audioManager = (AudioManager) params[0];
-            Context context = (Context) params[1] ;
-            try {
-                while (!isCancelled()) {
-                    Log.v("CallTest","running... isCancelled() : "+isCancelled()+"    spekaerphone : "+audioManager.isSpeakerphoneOn());
-                    Log.v("CallTest","현재 볼륨 : "+currentVolume+" 최대 볼륨 : "+audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL));
-/*                    if (audioManager.isSpeakerphoneOn() == false) {
-                        setSpeakerponeOn(audioManager, true);
-                    }*/
-                    Thread.sleep(1000);
-                }
-            } catch (Exception e){
-                e.printStackTrace();
-            }
-            return 0;
         }
     }
 
