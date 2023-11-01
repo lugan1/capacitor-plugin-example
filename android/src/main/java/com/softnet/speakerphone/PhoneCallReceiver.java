@@ -46,33 +46,31 @@ public class PhoneCallReceiver extends BroadcastReceiver {
         // TODO: This method is called when the BroadcastReceiver is receiving
         // an Intent broadcast.
         String state = intent.getStringExtra(TelephonyManager.EXTRA_STATE);
+        String phoneNumber2 = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
 
-        // API 29 부터 intent에서 수신전화번호 가져오는 방법이 deprecated 되었기 때문에 CallScreeningService 에서 수신번호를 가져온다.
-        if(state.equals("onScreenCall")){
-            phoneNumber= intent.getStringExtra("phoneNumber");
-        }
+        Log.v("CallTest","state : "+state+" mLastState : "+mLastState+"전화번호 가져와지는지 테스트 : "+phoneNumber2);
+
 
         // 브로드 캐스트 리시버가 알수없는 원인으로 두번 중복호출 되기 때문에 temp 변수와 비교후 다를때만 아래쪽 코드 실행
         if(state.equals(mLastState)){
+            if(state.equals(TelephonyManager.EXTRA_STATE_RINGING)){
+                phoneNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
+            }
             return;
         } else {
             mLastState = state;
         }
 
-        if(state.equals(TelephonyManager.EXTRA_STATE_RINGING)){
-            // API 28 이하 버전은 브로드캐스트 리시버의 intent 에서 수신전화번호를 가져올 수 있다.
-            if(Build.VERSION.SDK_INT <= 28){
-                phoneNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
+
+        if(state.equals(TelephonyManager.EXTRA_STATE_OFFHOOK)){
+/*            setSpeakerponeOn(context, true);*/
+            if(phoneNumber.equals("0234462502")){
+                Toast.makeText(context, "핸드폰번호 : "+phoneNumber, Toast.LENGTH_SHORT).show();
             }
         }
 
-        if(state.equals(TelephonyManager.EXTRA_STATE_OFFHOOK)){
-            setSpeakerponeOn(context, true);
-            Toast.makeText(context, "핸드폰번호 : "+phoneNumber, Toast.LENGTH_SHORT).show();
-        }
-
         if(state.equals(TelephonyManager.EXTRA_STATE_IDLE)){
-            setSpeakerponeOn(context, false);
+/*            setSpeakerponeOn(context, false);*/
         }
     }
 

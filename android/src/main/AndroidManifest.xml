@@ -4,18 +4,11 @@
 
     <!-- 권한 정의 -->
     <!-- 스피커폰 변경시 필요 -->
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" /> <!-- 폰의 상태, 전화번호 읽어오기 위해 필요 (API 29버전까지만 사용) -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 전화번호 읽어오기 위해 필요 (API 29버전부터 사용) -->
-    <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 폰의 상태, 전화번호 읽어오기 위해 필요 -->
+    <uses-permission android:name="android.permission.READ_CALL_LOG"/> <!-- 전화번호 읽어오기 위해 필요 -->
 
     <application>
-        <service
-            android:name=".CallScreeningService"
-            android:permission="android.permission.BIND_SCREENING_SERVICE">
-            <intent-filter>
-                <action android:name="android.telecom.CallScreeningService" />
-            </intent-filter>
-        </service> <!-- 브로드 캐스트 리시버 정의 -->
         <receiver
             android:name=".PhoneCallReceiver"
             android:enabled="true"
